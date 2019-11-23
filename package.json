@@ -5,7 +5,7 @@
   "engines": {
     "sketch": ">=49.0"
   },
-  "repository" : {
+  "repository": {
     "type": "git",
     "url": "https://github.com/mheesakkers/sketch-plugin-metaball"
   },
