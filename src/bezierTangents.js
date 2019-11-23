@@ -8,7 +8,29 @@ export default function bezierTangents (context) {
 	var ovals = getFilteredSelection()
 	var metaball = getMetaball(context, ovals)
 
-	// Draw
-	// metaball.drawInnerTangents(context)
-	metaball.drawBezierTangentLines(context)
+	// USER INPUT
+	UI.getInputFromUser("Define intersection offset", {
+	  type: UI.INPUT_TYPE.slider,
+	  min: 0.05,
+	  max: 1.0,
+	  // possibleValues: ['Sketch', 'Paper']
+	}, (err, intersectionOffset) => {
+	  if (err) { return }
+	  if (intersectionOffset) {
+	  	UI.getInputFromUser("Define bezier length", {
+	  	  type: UI.INPUT_TYPE.slider,
+	  	  min: 0.05,
+	  	  max: 1.0,
+	  	  // possibleValues: ['Sketch', 'Paper']
+	  	}, (err, bezierOffset) => {
+	  	  if (err) {
+	  	    // most likely the user canceled the input
+	  	    return
+	  	  }
+	  	  if (bezierOffset) {
+	  	  	metaball.drawBezierTangentLines(context, intersectionOffset, bezierOffset)
+	  	  }
+	  	})
+	  }
+	})
 }

@@ -45,14 +45,18 @@ export default class Metaball {
 	}
 
 	initTangentPoints () {
+		// First make sure the tangents are calculated
 		this.circleOne.calculateTangents( this.circleTwo )
+		this.circleTwo.calculateTangents( this.circleOne )
+
+		// Make an easier / shorter reference to those
 		this.tpoints[0] = this.circleOne.tangentPointOne
 		this.tpoints[1] = this.circleOne.tangentPointTwo
 		this.tpoints[2] = this.circleTwo.tangentPointOne
 		this.tpoints[3] = this.circleTwo.tangentPointTwo
 	}
 
-	drawBezierTangentLines (context) {
+	drawBezierTangentLines (context, offsetPercentage, bezierOffsetPercentage) {
 		this.initTangentPoints()
 
 		const distance = getDistance(this.circleOne.position.x, this.circleOne.position.y, this.circleTwo.position.x, this.circleTwo.position.y) - this.circleOne.radius - this.circleTwo.radius;
@@ -63,7 +67,7 @@ export default class Metaball {
 
 		// Calculate offset intersection point
 		let offsetVector = direction.clone()
-		const offset = distance * 0.05
+		const offset = distance * 0.5 * offsetPercentage
 	
 		offsetVector = offsetVector.unit()
 		offsetVector = rotateVector(offsetVector, 90)
@@ -77,7 +81,7 @@ export default class Metaball {
 
 		// Calculate Control Points
 		let bezierOffsetVector = direction.clone();
-		const bezierOffset = distance * 0.25
+		const bezierOffset = distance * 0.5 * bezierOffsetPercentage
 		bezierOffsetVector = bezierOffsetVector.unit()
 		bezierOffsetVector = bezierOffsetVector.multiply(bezierOffset)
 
@@ -136,6 +140,7 @@ export default class Metaball {
 		const x2 = this.tpoints[2].x;
 		const x3 = this.tpoints[1].x;
 		const x4 = this.tpoints[3].x;
+		
 		const y1 = this.tpoints[0].y;
 		const y2 = this.tpoints[2].y;
 		const y3 = this.tpoints[1].y;
