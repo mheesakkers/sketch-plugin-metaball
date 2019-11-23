@@ -1,0 +1,43 @@
+{
+  "$schema": "https://raw.githubusercontent.com/BohemianCoding/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "icon": "icon.png",
+  "name": "Metaball",
+  "version": "0.1.0",
+  "description": "A simple plugin to draw shapes based on inner and outer tangents between two circles.",
+  "authorEmail": "misha.heesakkers@gmail.com",
+  "author": "Misha Heesakkers",
+  "disableCocoaScriptPreprocessor": false,
+  "commands": [
+    {
+      "name": "Arc",
+      "description": "Draw a bezier shape based on the inner tangents between the two circles.",
+      "identifier": "bezier-tangents",
+      "script": "__bezierTangents.js",
+      "icon": "icon-arc.png"
+    },
+    {
+      "name": "Inner Tangents",
+      "description": "Draw a shape based on the inner tangents between the two circles.",
+      "identifier": "inner-tangents",
+      "script": "__innerTangents.js",
+      "icon": "icon-inner-tangents.png"
+    },
+    {
+      "name": "Outer Tangents",
+      "description": "Draw a shape based on the outer tangents between the two circles.",
+      "identifier": "outer-tangents",
+      "script": "__outerTangents.js",
+      "icon": "icon-outer-tangents.png"
+    }
+  ],
+  "menu": {
+    "title": "Metaball",
+    "items": [
+      "bezier-tangents",
+      "inner-tangents",
+      "outer-tangents"
+    ]
+  },
+  "identifier": "Metaball",
+  "appcast": "https://raw.githubusercontent.com/mheesakkers/sketch-plugin-metaball/master/.appcast.xml"
+}

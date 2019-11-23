@@ -1,5 +1,5 @@
 {
-  "name": "metaball",
+  "name": "Metaball",
   "description": "A simple plugin to draw shapes based on inner and outer tangents between two circles.",
   "version": "0.1.0",
   "engines": {
@@ -12,7 +12,7 @@
   "skpm": {
     "name": "Metaball",
     "manifest": "src/manifest.json",
-    "main": "metaball.sketchplugin",
+    "main": "Metaball.sketchplugin",
     "assets": [
       "assets/**/*"
     ],
