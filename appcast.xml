@@ -1,20 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>Sketch Plugin: Metaball</title>
-    <link>http://sparkle-project.org/files/sparkletestcast.xml</link>
-    <description>A simple plugin to draw shapes based on inner and outer tangents between two circles.</description>
-    <language>en</language>
     <item>
-      <title>Version 0.1</title>
-      <description>
-        <![CDATA[
-            <ul>
-              <li>Beta release</li>
-            </ul>
-          ]]>
-      </description>
-      <enclosure url="https://github.com/mheesakkers/sketch-plugin-metaball/releases/download/Beta/Metaball.sketchplugin.zip" sparkle:version="3.0"/>
+    	<title>Sketch Plugin: Metaball</title>
+     	<description>A simple plugin to draw shapes based on inner and outer tangents between two circles.</description>
+     	<enclosure url="https://github.com/mheesakkers/sketch-plugin-metaball/releases/download/v0.1.0/Metaball.sketchplugin.zip" sparkle:version="0.1.0"/>
     </item>
   </channel>
 </rss>
