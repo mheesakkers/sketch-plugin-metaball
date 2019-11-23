@@ -2,6 +2,7 @@ import Circle from './Circle.js'
 import Vector from './vendor/Vector.js'
 import hexToRgba from './helpers/hexToRgba.js'
 import rotateVector from './helpers/rotateVector.js'
+import getDistance from './helpers/getDistance.js'
 import { ShapePath, Rectangle } from 'sketch'
 
 export default class Metaball {
@@ -54,6 +55,7 @@ export default class Metaball {
 	drawBezierTangentLines (context) {
 		this.initTangentPoints()
 
+		const distance = getDistance(this.circleOne.position.x, this.circleOne.position.y, this.circleTwo.position.x, this.circleTwo.position.y) - this.circleOne.radius - this.circleTwo.radius;
 		const direction = this.circleTwo.position.subtract(this.circleOne.position)
 		let intersection = this._getIntersectionPointOfTangentLines()
 		let intersectionOne = intersection.clone()
@@ -61,7 +63,7 @@ export default class Metaball {
 
 		// Calculate offset intersection point
 		let offsetVector = direction.clone()
-		const offset = 10
+		const offset = distance * 0.05
 	
 		offsetVector = offsetVector.unit()
 		offsetVector = rotateVector(offsetVector, 90)
@@ -75,7 +77,7 @@ export default class Metaball {
 
 		// Calculate Control Points
 		let bezierOffsetVector = direction.clone();
-		const bezierOffset = offset * 0.5
+		const bezierOffset = distance * 0.25
 		bezierOffsetVector = bezierOffsetVector.unit()
 		bezierOffsetVector = bezierOffsetVector.multiply(bezierOffset)
 
