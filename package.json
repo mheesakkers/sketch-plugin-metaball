@@ -7,7 +7,7 @@
   },
   "repository" : {
     "type": "git",
-    "url": "git+https://github.com/mheesakkers/sketch-plugin-metaball"
+    "url": "https://github.com/mheesakkers/sketch-plugin-metaball"
   },
   "skpm": {
     "name": "Metaball",
