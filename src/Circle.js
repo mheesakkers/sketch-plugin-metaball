@@ -33,9 +33,8 @@ export default class Circle {
 		this.helperPointFour;
 	}
 
-	calculateTangents (parent, other) {
+	calculateTangents (other) {
 		this.direction = other.position.subtract(this.position)
-		line(this.context, this.position, other.position)
 
 		// Midpoint Circle
     	const radiusMidpoint = this.direction.length() * 0.5;
@@ -46,36 +45,20 @@ export default class Circle {
 	    // ellipse(parent, 'MidpointRadius', this.midpoint, '#F2CFDA', radiusMidpoint * 2)
 
 	    const radiiOneAndTwo = this.radius + other.radius
-
-	    // HELPER POINT ONE
-	    // Find angle to rotate V1 (found by The Law of Cosine)
-	    const angleTowardsHelperPointOne = Math.acos( ( Math.pow(radiiOneAndTwo, 2) + Math.pow(radiusMidpoint, 2) - Math.pow(radiusMidpoint, 2) ) / (2 * radiiOneAndTwo * radiusMidpoint) )
-	    const posOneAngle = Math.atan2(this.direction.y, this.direction.x) - angleTowardsHelperPointOne
-
-	    this.helperPointOne = new Vector(
-	      this.position.x + (radiiOneAndTwo * Math.cos(posOneAngle)),
-	      this.position.y + (radiiOneAndTwo * Math.sin(posOneAngle))
-	    )
+	    this.helperPointOne = this._getHelperPoint(radiiOneAndTwo, radiusMidpoint, this.position, this.direction, false)
 
 	    // INNER TANGENT POINT ONE //
 	    let helperVectorT1 = this.helperPointOne.subtract(this.position)
 	    helperVectorT1 = helperVectorT1.unit()
 	    helperVectorT1 = helperVectorT1.multiply(this.radius)
 	    this.tangentPointOne = this.position.add(helperVectorT1)
-	    ellipse(parent, 'tangentPointOne', this.tangentPointOne, '#FF0000', 12)
 
 	    // Parallel line One
 	    const parallelVectorOne = other.position.subtract(this.helperPointOne);
 	    this.tangentPointOneOpposite = this.tangentPointOne.add(parallelVectorOne);
 
 	    // HELPER POINT TWO //
-	    // Find angle to rotate V1 (found by The Law of Cosine)
-	    const angleTowardsHelperPointTwo = Math.acos( ( Math.pow(radiiOneAndTwo, 2) + Math.pow(radiusMidpoint, 2) - Math.pow(radiusMidpoint, 2) ) / (2 * radiiOneAndTwo * radiusMidpoint) );
-	    const posTwoAngle = Math.atan2(this.direction.y, this.direction.x) + angleTowardsHelperPointTwo;
-	    this.helperPointTwo = new Vector(
-	      this.position.x + radiiOneAndTwo * Math.cos(posTwoAngle), 
-	      this.position.y + radiiOneAndTwo * Math.sin(posTwoAngle)
-	    )
+	    this.helperPointTwo = this._getHelperPoint(radiiOneAndTwo, radiusMidpoint, this.position, this.direction, true)
 
 	    // INNER TANGENT POINT TWO //
 	    let helperVectorT2 = this.helperPointTwo.subtract(this.position)
@@ -90,42 +73,57 @@ export default class Circle {
 	    // *** OUTER TANGENTS *** //
 	    
 	    // only works when r1 >= r2
-	    const helperRadiusThree = this.radius - other.radius;
-	    const angleTowardsHelperPointThree = Math.acos( ( Math.pow(helperRadiusThree, 2) + Math.pow(radiusMidpoint, 2) - Math.pow(radiusMidpoint, 2) ) / (2 * helperRadiusThree * radiusMidpoint) );
-	    const posThreeAngle = Math.atan2(this.direction.y, this.direction.x) - angleTowardsHelperPointThree;
-	    this.helperPointThree = new Vector(
-	      this.position.x + helperRadiusThree * Math.cos(posThreeAngle), 
-	      this.position.y + helperRadiusThree * Math.sin(posThreeAngle)
-	    )
+	    if (this.radius > other.radius) {
+		    const subtractedRadii = this.radius - other.radius;
+		    this.helperPointThree = this._getHelperPoint(subtractedRadii, radiusMidpoint, this.position, this.direction, false)
 
-	    // OUTER TANGENT POINT ONE
-	    let helperVectorOT1 = this.helperPointThree.subtract(this.position)
-	    helperVectorOT1 = helperVectorOT1.unit()
-	    helperVectorOT1 = helperVectorOT1.multiply(this.radius)
-	    this.outerTangentPointOne = this.position.add(helperVectorOT1)
+		    // OUTER TANGENT POINT ONE
+		    let helperVectorOT1 = this.helperPointThree.subtract(this.position)
+		    helperVectorOT1 = helperVectorOT1.unit()
+		    helperVectorOT1 = helperVectorOT1.multiply(this.radius)
+		    this.outerTangentPointOne = this.position.add(helperVectorOT1)
 
-	    // Parallel line Outer Tangent Two
-	    const parallelVectorOT1 = other.position.subtract(this.helperPointThree)
-	    this.outerTangentPointOneOpposite = this.outerTangentPointOne.add(parallelVectorOT1)
+		    // Parallel line Outer Tangent Two
+		    const parallelVectorOT1 = other.position.subtract(this.helperPointThree)
+		    this.outerTangentPointOneOpposite = this.outerTangentPointOne.add(parallelVectorOT1)
 
-	    // OUTER TANGENT POINT TWO
-	    const angleTowardsHelperPointFour = Math.acos( ( Math.pow(helperRadiusThree, 2) + Math.pow(radiusMidpoint, 2) - Math.pow(radiusMidpoint, 2) ) / (2 * helperRadiusThree * radiusMidpoint) );
-	    const posFourAngle = Math.atan2(this.direction.y, this.direction.x) + angleTowardsHelperPointFour;
-	    this.helperPointFour = new Vector(
-	      this.position.x + helperRadiusThree * Math.cos(posFourAngle), 
-	      this.position.y + helperRadiusThree * Math.sin(posFourAngle)
-	    );
+		    // OUTER TANGENT POINT TWO
+		    this.helperPointFour = this._getHelperPoint(subtractedRadii, radiusMidpoint, this.position, this.direction, true)
 
-	    let helperVectorOT2 = this.helperPointFour.subtract(this.position)
-	    helperVectorOT2 = helperVectorOT2.unit()
-	    helperVectorOT2 = helperVectorOT2.multiply(this.radius)
-	    this.outerTangentPointTwo = this.position.add(helperVectorOT2);
+		    let helperVectorOT2 = this.helperPointFour.subtract(this.position)
+		    helperVectorOT2 = helperVectorOT2.unit()
+		    helperVectorOT2 = helperVectorOT2.multiply(this.radius)
+		    this.outerTangentPointTwo = this.position.add(helperVectorOT2);
 
-	    // Parallel line Outer Tangent Two
-	    const parallelVectorOT2 = other.position.subtract(this.helperPointFour)
-	    this.outerTangentPointTwoOpposite = this.outerTangentPointTwo.add(parallelVectorOT2)
+		    // Parallel line Outer Tangent Two
+		    const parallelVectorOT2 = other.position.subtract(this.helperPointFour)
+		    this.outerTangentPointTwoOpposite = this.outerTangentPointTwo.add(parallelVectorOT2)
+		} else {
+			other.calculateTangents(this)
+
+			this.outerTangentPointOne = other.outerTangentPointOneOpposite
+			this.outerTangentPointOneOpposite = other.outerTangentPointOne
+			this.outerTangentPointTwo = other.outerTangentPointTwoOpposite
+			this.outerTangentPointTwoOpposite = other.outerTangentPointTwo
+
+		}
 
 	}
+
+	// HELPER FUNCTIONS
+	_getHelperPoint(currentRadius, otherRadius, position, direction, positive) {
+		// Find angle to rotate V1 (found by The Law of Cosine)
+		let angleTowardsHelperPoint = Math.acos( ( Math.pow(currentRadius, 2) + Math.pow(otherRadius, 2) - Math.pow(otherRadius, 2) ) / (2 * currentRadius * otherRadius) )
+		angleTowardsHelperPoint = positive ? angleTowardsHelperPoint : -angleTowardsHelperPoint
+		const angle = Math.atan2(direction.y, direction.x) + angleTowardsHelperPoint
+
+		return new Vector(
+		  position.x + currentRadius * Math.cos(angle),
+		  position.y + currentRadius * Math.sin(angle)
+		)
+	}
+
+	// DRAWING FUNCTIONS
 
 	drawHelpers (parent) {
 		// Anchor
@@ -161,17 +159,11 @@ export default class Circle {
 		var fill = shape.style().addStylePartOfType(0); // `0` constant indicates that we need a `fill` part to be created
 		fill.color = MSColor.colorWithRGBADictionary( hexToRgba(this.style.fills[0].color) )
 
-		// console.log(this.style.fills[0].color)
-		console.log(hexToRgba(this.style.fills[0].color))
-
-		var documentData = context.document.documentData()
-		var currentParent = documentData.currentPage().currentArtboard() || documentData.currentPage()
-		currentParent.addLayers([shape])
-
-		console.log(currentParent)
+		getCurrentParent(context).addLayers([shape])
 	}
 }
 
+// DRAWING HELPERS FUNCTIONS
 function ellipse (parent, name, position, color, diameter = 8) {
 	const anchor = new ShapePath({
 	  name: name,
@@ -206,27 +198,12 @@ function line (context, start, end) {
 	border.color = MSColor.colorWithRGBADictionary( {r: 0.0, g: 1.0, b: 1.0, a: 1.0} );
 	border.thickness = 1;
 
-	var documentData = context.document.documentData();
-	var currentParent = documentData.currentPage().currentArtboard() || documentData.currentPage()
-	currentParent.addLayers([shape]);
+	getCurrentParent(context).addLayers([shape])
 
 }
 
-function generateLine (parent, name, start, end) {
-	const x = start.x
-	const y = start.y
-	const w = end.x - start.x
-	const h = end.y - start.y
-
-	const line = new ShapePath({
-	  name: name,
-	  shapeType: ShapePath.ShapeType.Custom,
-	  style: { borders: ['#000000']},
-	  frame: new Rectangle(x, y, w, h),
-	  points: [
-	    { point: { x: start.x, y: start.y}},
-	    { point: { x: end.x, y: end.y }}
-	  ],
-	  parent: parent
-	})
+// Only for old API use
+function getCurrentParent (context) {
+	var documentData = context.document.documentData()
+	return documentData.currentPage().currentArtboard() || documentData.currentPage()
 }

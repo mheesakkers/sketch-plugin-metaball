@@ -1,8 +1,14 @@
 import sketch from 'sketch'
 import Circle from './Circle.js'
 
-// documentation: https://developer.sketchapp.com/reference/api/
-
+// TO DO:
+//  - Beziers
+// 	- Interface
+//  - Inner tangents
+//  - Further clean up
+//  - Icon
+//  - Seperate commands
+//  - Let the circle decide which circle calculates the outer tangents in case of radii diference
 export default function(context) {
 	var document = sketch.getSelectedDocument()
 	var page = document.selectedPage
@@ -11,7 +17,7 @@ export default function(context) {
 
 	if (!selection.isEmpty) {
 
-		console.log(selection)
+		// console.log(selection)
 
 		// FILTER SELECTION
 		selection.layers.forEach(layer => {
@@ -26,37 +32,34 @@ export default function(context) {
 			}
 		})
 
+		// SELECTION PARENT
+
+
 		// START CALCULATIONS
 		if (ovals.length > 1) {
 			// Get first two ovals in selection
 
+			let ovalOne = ovals[0]
+			let ovalTwo = ovals[1]
+
 			// First Circle
 			var circleOne = new Circle(context)
-			circleOne.radius = ovals[0].frame.width * 0.5
-			circleOne.position.x = ovals[0].frame.x + circleOne.radius
-			circleOne.position.y = ovals[0].frame.y + circleOne.radius
-			circleOne.style = ovals[0].style
+			circleOne.radius = ovalOne.frame.width * 0.5
+			circleOne.position.x = ovalOne.frame.x + circleOne.radius
+			circleOne.position.y = ovalOne.frame.y + circleOne.radius
+			circleOne.style = ovalOne.style
 
 			// Second circle
 			var circleTwo = new Circle(context)
-			circleTwo.radius = ovals[1].frame.width * 0.5
-			circleTwo.position.x = ovals[1].frame.x + circleTwo.radius
-			circleTwo.position.y = ovals[1].frame.y + circleTwo.radius
-			circleTwo.style = ovals[1].style
+			circleTwo.radius = ovalTwo.frame.width * 0.5
+			circleTwo.position.x = ovalTwo.frame.x + circleTwo.radius
+			circleTwo.position.y = ovalTwo.frame.y + circleTwo.radius
+			circleTwo.style = ovalTwo.style
 
-			// Currently the outerTangents calculation only works 
-			// if the first circle is bigger than the other
-			if (circleOne.radius > circleTwo.radius) {
-				circleOne.calculateTangents(page, circleTwo)
-				circleOne.drawHelpers(page)
-				circleOne.drawOutertangents(context)
-				circleTwo.style = circleOne.style
-			} else {
-				circleTwo.calculateTangents(page, circleOne)
-				circleTwo.drawHelpers(page)
-				circleTwo.drawOutertangents(context)
-				circleOne.style = circleTwo.style
-			}
+			// Tangents!
+			circleOne.calculateTangents( circleTwo )
+			circleOne.drawOutertangents(context)
+			circleTwo.style = circleOne.style
 			
 
 		} else {
