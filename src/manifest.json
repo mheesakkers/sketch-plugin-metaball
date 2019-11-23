@@ -6,18 +6,28 @@
   "description": "A simple plugin to calculate tangents between two circles.",
   "authorEmail" : "misha.heesakkers@gmail.com",
   "author" : "Misha Heesakkers",
+  "disableCocoaScriptPreprocessor": false,
   "commands": [
     {
-      "name": "Run",
-      "identifier": "metaball.run-identifier",
-      "script": "./run.js",
-      "shortcut": "cmd j"
+      "name": "Arc",
+      "identifier": "bezier-tangents",
+      "script": "./bezierTangents.js"
+    },
+    {
+      "name": "Inner Tangents",
+      "identifier": "inner-tangents",
+      "script": "./innerTangents.js"
+    },
+    {
+      "name": "Outer Tangents",
+      "identifier": "outer-tangents",
+      "script": "./outerTangents.js"
     }
   ],
   "menu": {
     "title": "Metaball",
     "items": [
-      "metaball.run-identifier"
+      "bezier-tangents", "inner-tangents", "outer-tangents"
     ]
   }
 }

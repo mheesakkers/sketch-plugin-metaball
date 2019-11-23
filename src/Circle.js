@@ -1,6 +1,5 @@
-import sketch from 'sketch'
 import { ShapePath, Rectangle } from 'sketch'
-import Vector from './Vector.js'
+import Vector from './vendor/Vector.js'
 import hexToRgba from './helpers/hexToRgba.js'
 
 export default class Circle {
@@ -145,7 +144,24 @@ export default class Circle {
 		line(this.context, this.outerTangentPointTwo, this.outerTangentPointTwoOpposite)
 	}
 
-	drawOutertangents (context) {
+	drawInnerTangents (context) {
+		// All coordinates are provided in pixels
+		var path = NSBezierPath.bezierPath();
+		path.moveToPoint(NSMakePoint(this.tangentPointOne.x, this.tangentPointOne.y))
+		path.lineToPoint(NSMakePoint(this.tangentPointOneOpposite.x, this.tangentPointOneOpposite.y ))
+		path.lineToPoint(NSMakePoint(this.tangentPointTwoOpposite.x, this.tangentPointTwoOpposite.y))
+		path.lineToPoint(NSMakePoint(this.tangentPointTwo.x, this.tangentPointTwo.y ))
+		path.closePath();
+
+		var shape = MSShapeGroup.layerWithPath(MSPath.pathWithBezierPath(path))
+		// Add fill
+		var fill = shape.style().addStylePartOfType(0); // `0` constant indicates that we need a `fill` part to be created
+		fill.color = MSColor.colorWithRGBADictionary( hexToRgba(this.style.fills[0].color) )
+
+		getCurrentParent(context).addLayers([shape])
+	}
+
+	drawOuterTangents (context) {
 		// All coordinates are provided in pixels
 		var path = NSBezierPath.bezierPath();
 		path.moveToPoint(NSMakePoint(this.outerTangentPointOne.x, this.outerTangentPointOne.y))
