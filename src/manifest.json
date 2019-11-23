@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/BohemianCoding/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "icon": "icon.png",
+  "name": "Metaball",
+  "version" : "0.1",
+  "description": "A simple plugin to calculate tangents between two circles.",
+  "authorEmail" : "misha.heesakkers@gmail.com",
+  "author" : "Misha Heesakkers",
+  "commands": [
+    {
+      "name": "Run",
+      "identifier": "metaball.run-identifier",
+      "script": "./run.js",
+      "shortcut": "cmd j"
+    }
+  ],
+  "menu": {
+    "title": "Metaball",
+    "items": [
+      "metaball.run-identifier"
+    ]
+  }
+}
