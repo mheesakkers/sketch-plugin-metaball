@@ -10,18 +10,24 @@
   "commands": [
     {
       "name": "Arc",
+      "description": "Draw a bezier shape based on the inner tangents between the two circles.",
       "identifier": "bezier-tangents",
-      "script": "./bezierTangents.js"
+      "script": "./bezierTangents.js",
+      "icon": "icon-arc.png"
     },
     {
       "name": "Inner Tangents",
+      "description": "Draw a shape based on the inner tangents between the two circles.",
       "identifier": "inner-tangents",
-      "script": "./innerTangents.js"
+      "script": "./innerTangents.js",
+      "icon": "icon-inner-tangents.png"
     },
     {
       "name": "Outer Tangents",
+      "description": "Draw a shape based on the outer tangents between the two circles.",
       "identifier": "outer-tangents",
-      "script": "./outerTangents.js"
+      "script": "./outerTangents.js",
+      "icon": "icon-outer-tangents.png"
     }
   ],
   "menu": {

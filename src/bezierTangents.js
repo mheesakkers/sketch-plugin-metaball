@@ -13,7 +13,7 @@ export default function bezierTangents (context) {
 	  type: UI.INPUT_TYPE.slider,
 	  min: 0.05,
 	  max: 1.0,
-	  // possibleValues: ['Sketch', 'Paper']
+	  icon: "Icon_Arc.png"
 	}, (err, intersectionOffset) => {
 	  if (err) { return }
 	  if (intersectionOffset) {
@@ -21,7 +21,7 @@ export default function bezierTangents (context) {
 	  	  type: UI.INPUT_TYPE.slider,
 	  	  min: 0.05,
 	  	  max: 1.0,
-	  	  // possibleValues: ['Sketch', 'Paper']
+	  	  icon: "Icon_Arc.png"
 	  	}, (err, bezierOffset) => {
 	  	  if (err) {
 	  	    // most likely the user canceled the input
