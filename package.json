@@ -1,7 +1,7 @@
 {
   "name": "Metaball",
   "description": "A simple plugin to draw shapes based on inner and outer tangents between two circles.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "engines": {
     "sketch": ">=49.0"
   },

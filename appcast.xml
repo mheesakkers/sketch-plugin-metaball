@@ -2,6 +2,11 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
     <item>
+      <title>Sketch Plugin: Metaball</title>
+      <description>A simple plugin to draw shapes based on inner and outer tangents between two circles.</description>
+      <enclosure url="https://github.com/mheesakkers/sketch-plugin-metaball/releases/download/v0.1.2/Metaball.sketchplugin.zip" sparkle:version="0.1.2"/>
+    </item>
+    <item>
       <enclosure url="https://github.com/mheesakkers/sketch-plugin-metaball/releases/download/v0.1.1/Metaball.sketchplugin.zip" sparkle:version="0.1.1"/>
     </item>
     <item>

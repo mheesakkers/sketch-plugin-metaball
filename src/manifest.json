@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/BohemianCoding/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
   "icon": "icon.png",
   "name": "Metaball",
-  "version" : "0.1.1",
+  "version" : "0.1.2",
   "appcast" : "https://raw.githubusercontent.com/mheesakkers/sketch-plugin-metaball/master/appcast.xml",
   "description": "A simple plugin to draw shapes based on inner and outer tangents between two circles.",
   "authorEmail" : "misha.heesakkers@gmail.com",
