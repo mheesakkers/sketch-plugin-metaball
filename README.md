@@ -1,3 +1,5 @@
+<img height="128" width="128" src="https://github.com/mheesakkers/sketch-plugin-metaball/blob/master/assets/icon-rounded.png">
+
 # Metaball
 
 A Sketch plugin to draw shapes between two circles based on their inner and outer tangents.
