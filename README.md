@@ -4,6 +4,8 @@
 
 A Sketch plugin to draw shapes between two circles based on their inner and outer tangents.
 
+<img src="https://github.com/mheesakkers/sketch-plugin-metaball/blob/master/assets/screengrab.gif?raw=true" alt="img" style="max-width:100%;">
+
 ## Usage
 1. Select two circles (works just for two for now)
 2. Run one of the Metaball options (Arc, Inner Tangents or Outer Tangents) via the Plugins menu (or use Runner)
