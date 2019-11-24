@@ -3,6 +3,7 @@
 # Metaball
 
 A Sketch plugin to draw shapes between two circles based on their inner and outer tangents.
+[Inspired by the Adobe Illustrator script by Hiroyuki Sato](http://shspage.com/aijs/en/#metaball)
 
 <img src="https://github.com/mheesakkers/sketch-plugin-metaball/blob/master/assets/screengrab.gif?raw=true" alt="img" style="max-width:100%;">
 
